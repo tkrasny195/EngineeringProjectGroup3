@@ -104,7 +104,7 @@ p4Ndice = nsDice(4);
 p5Ndice = nsDice(5);
 p6Ndice = nsDice(6);
 
-function [quant,numb,bs,turn,bets] = betting(quant,numb,goDice,nDice,turn,bets,nsDice)
+function [quant,numb,bs,turn,bets,likelyBS] = betting(quant,numb,goDice,nDice,turn,bets,nsDice)
 % The player whose turn it is uses the current bet (quant and numb) and his
 % dice (goDice) and the number of dice (nDice) to make a decision about
 % whether to increase the bet or to call BS on the current bet.
@@ -117,6 +117,7 @@ function [quant,numb,bs,turn,bets] = betting(quant,numb,goDice,nDice,turn,bets,n
 %    turn - the number corresponding to the player whose turn it is
 %    bets - an array with all the past bets in this round
 %    nsDice - an array with the number of dice each player has
+%    likelyBS - a 1x6 array with general perceived percent likelihood to call BS for each player
 %   OUTPUTS
 %    quant - the new current bet with quantity
 %    numb -  the new current bet with specific number
