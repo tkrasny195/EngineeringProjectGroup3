@@ -121,8 +121,15 @@ weightsArray - a 1x6 array with the aggregated weights for each number ( ones (a
 
 # Variables in generateTraits
 
+honesty - personality trait (dealing with idenity) random number from 0-1
 
+trust - personality trait (dealing with idenity) random number from 0-1
 
+threshold - personality trait (dealing with quanity) random number from 0-1
+
+aggressive - personality trait (dealing with quanity) random number from 0-1
+
+shifty - personality trait (dealing with quanity) random number from 0-1
 
 
 
