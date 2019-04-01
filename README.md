@@ -89,7 +89,7 @@ turn - the number corresponding to the player who's turn it is
 
 # Variables in betting function
 
-bets - a cell array with all the past bets in the round
+bets - a cell array with all the past bets in the round (see more above)
 
 goDice - the dice that the player(turn) has in hand
 
@@ -102,3 +102,27 @@ numb - the certain number of the current bet
 quant - the current bet for the quantity of a certain number
 
 turn - the player number of the player(turn)
+
+# Variables in diceWeights
+
+bets -  see above
+
+pHonestArray - a 1x6 array with perceived honesty values initialized at 1 (ranges from 0 to 1) and when a player lies during a round the                value for that player decreased (IN SOME WAY UNKNOWN) and if they go through a round and don't lie then it gets closer to 
+               1
+traits - structure with (n number of players as idexes, 5 field names: honesty, trust, threshold, aggressive, shifty, these correspond to the traits for all the 
+
+turn - see above
+
+nDice - see above
+
+nsDice - see above
+
+weightsArray - a 1x6 array with the aggregated weights for each number ( ones (always zero),twos, threes, fours, fives, sixes)
+
+# Variables in generateTraits
+
+
+
+
+
+
