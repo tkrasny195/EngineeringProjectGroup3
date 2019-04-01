@@ -25,6 +25,7 @@ function[honesty, trust, threshold, aggressive, shifty] = generateTraits(n)
 %   shifty
 
 % preallocates the traits into a 1 x n array
+% looked this up and this is the general structure for preallocating but not working... fix this later or ask Bartolini
 % traits = struct('honesty',zeros(n,1),'trust',zeros(n,1),'aggressive',zeros(n,1)...
 %  'threshold',zeros(n,1),'shifty',zeros(n,1));
 
