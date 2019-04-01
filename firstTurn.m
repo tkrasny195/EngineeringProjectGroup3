@@ -1,4 +1,16 @@
 function[numb, quant] = firstTurn(goDice,traits,turn,nDice)
+% Determines the first bet of the round based on the players dice in hand,
+% the turn number telling what player's turn it is, and the total number of
+% dice. The first bet simply consists of number(identity) and a quantity.
+%   INPUTS
+%    goDice - see above
+%    traits - see above
+%    nDice - see above
+%   OUTPUTS
+%    numb -  the number (identity) of the bet
+%    quant - the quantity of the bet
+% 4/1/19
+% Thomas Kasl, Zach 
 
 %% Idenity
 probs = rand;
@@ -8,6 +20,13 @@ if probs >= traits(turn.honesty)
 else
     beHonest = false;
 end
+
+ones = 0;
+twos = 0;
+threes = 0;
+fours = 0;
+fives = 0;
+sixes = 0;
 
 for i = 1:length(goDice)
     diceId = goDice(i);
@@ -66,10 +85,7 @@ end
 
 
 %% Quanity
-
-quant = traits(turn).aggressive*
-
-
-
+quantThreshold = probabilityThresholdtoQuantity(nDice,traits,turn);
+quant = traits(turn).aggressive*quantThreshold;
 
 
