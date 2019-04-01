@@ -25,9 +25,6 @@ weightsArray = zeros(1,6);
 betsSize = size(bets);
 nTotalBets = betsSize(2);
 
-if nbets > 5;
-    nbets = 5;
-end
 
 % number of dice in current player's hand
 handLength = length(goDice);
