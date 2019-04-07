@@ -131,7 +131,7 @@ aggressive - personality trait (dealing with quanity) random number from 0-1
 
 shifty - personality trait (dealing with quanity) random number from 0-1
 
-consideration - personality trait (dealing with quanity) random number from 0-1
+consideration - personality trait (dealing with _____) random number from 0-1
 
 
 
