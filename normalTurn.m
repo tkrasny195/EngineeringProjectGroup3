@@ -48,8 +48,19 @@ elseif quant >= c*quantThreshold
 end
 
 %% BS
+traits1(turn+1).threshold = likelyBS(turn+1);
+perceivedNextThreshold = probabilityThresholdtoQuantity(nDice,traits1,turn+1);
+
 if  oldQuant > quantThreshold
-    bs = true;
+    if perceivedNextThreshold > quant
+        chance = rand;
+        consideration = traits(turn).consideration;
+        if chance <= consideration
+            bs = false;
+        elseif chance > consideration
+            bs = true;
+        end
+    end
 elseif oldQuant == quantThreshold
     chance = rand;
     shifty = traits(turn).shifty;
@@ -68,6 +79,8 @@ elseif oldQuant == quantThreshold
         index = randi(maxes);
         numb = numbersWithMaxWeights(index);
     end
+elseif oldQuant < quantThreshold
+    bs = false;
 end
     
 

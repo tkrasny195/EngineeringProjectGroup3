@@ -1,35 +1,38 @@
-function [p1Ndice,p2Ndice,p3Ndice,p4Ndice,p5Ndice,... 
-    p6Ndice,turn, totalTurns] = ...
-    ldround(p1Ndice,p2Ndice,p3Ndice,p4Ndice,p5Ndice,p6Ndice,turn)
+function [nsDice,turn,totalTurns,likelyBS,nDice,bets,dice,playerWhoLost,playerWhoBSed] = ...
+    ldround(nsDice,turn,likelyBS,traits,pHonestArray)
 % Plays 1 round of liar's dice using bet function and returns adjusted 
 % numbers of dice for each player. Only one person will lose a die after 
 % 1 round.
 %   INPUTS
-%    p1Ndice - number of dice p1 has remaining
-%    p2Ndice - number of dice p2 has remaining
-%    p3Ndice - number of dice p3 has remaining
-%    p4Ndice - number of dice p4 has remaining
-%    p5Ndice - number of dice p5 has remaining
-%    p6Ndice - number of dice p6 has remaining
+%    nsDice - an array with the number of dice for each player
 %    turn - the number corresponding to the player who's turn it is
+%    likelyBS - a 1x6 array with general percieved likelihood of calling BS
+%               by each player
+%    traits -
+%    pHonestArray -
 %   OUTPUTS
-%    p1Ndice - number of dice p1 has remaining
-%    p2Ndice - number of dice p2 has remaining
-%    p3Ndice - number of dice p3 has remaining
-%    p4Ndice - number of dice p4 has remaining
-%    p5Ndice - number of dice p5 has remaining
-%    p6Ndice - number of dice p6 has remaining
+%    nsDice - an array with the number of dice for each player
 %    turn - the number corresponding to the player who's turn it is
 %    totalTurns - the total number of turns in this round
+%    likelyBS - a 1x6 array with general percieved likelihood of calling BS
+%               by each player
+%    nDice - the total number of dice in play from this round
+%    bets - cell array with all the bets from this round
+%           the first row is the quantity
+%           the second row is the number
+%           the third row is the player whose turn it was
+%    dice - a 2x6 array with the player number and the dice for each player
+%           in this round
+%           the first row is the player number
+%           the second row is the dice the player had in hand
+%    playerWhoLost - the number corresponding to the player who lost a die
+%    playerWhoBSed - the number corresponding to the player who BSed
 %
 % 3/18/19
 % Thomas Kasl
 
-% puts the numbers of dice for each player into an array
-nsDice = [p1Ndice,p2Ndice,p3Ndice,p4Ndice,p5Ndice,p6Ndice];
-
 % calculates the total number of dice in play for decision usage
-nDice = p1Ndice+p2Ndice+p3Ndice+p4Ndice+p5Ndice+p6Ndice;
+nDice = sum(nsDice);
 
 % presets the #'s counters to 0
 ones = 0;
@@ -47,31 +50,33 @@ sixes = 0;
 for i = 1:6
     dice{i} = randi(6,1,nsDice(i));
 end
-disp(dice)
+
 %% counts the total real quantity of each number in all the dice rolls
 for i = 1:6
-    for j = 1:nsDice(i)
-        test = dice{i}(j);
-        switch test
-            case 1
-                ones = ones+1;
-            case 2
-                twos = twos+1;
-            case 3
-                threes = threes+1;
-            case 4
-                fours = fours+1;
-            case 5
-                fives = fives+1;
-            case 6
-                sixes = sixes+1;
+    if nsDice(i) ~= 0
+        for j = 1:nsDice(i)
+            diceId = dice{i}(j);
+            switch diceId
+                case 1
+                    ones = ones+1;
+                case 2
+                    twos = twos+1;
+                case 3
+                    threes = threes+1;
+                case 4
+                    fours = fours+1;
+                case 5
+                    fives = fives+1;
+                case 6
+                    sixes = sixes+1;
+            end
         end
     end
 end
 
-% puts the real quantities of each number into an array
-realQuants = [ones,twos,threes,fours,fives,sixes];
-disp(realQuants)
+% puts the real quantities of each number into an array with ones counted
+% for all others except itself
+realQuants = [0,twos+ones,threes+ones,fours+ones,fives+ones,sixes+ones];
 %% preset variables for first turn
 quant = 0; % the quantity of a certain number in the bet
 numb = 0; % the number in the bet
@@ -81,51 +86,58 @@ totalTurns = 0; % the total number of turns in this round
 
 %% loop that runs turns around the circle until "BS" is called
 while ~bs % runs untill "BS" is called
+    totalTurns = totalTurns+1; % increments total turns counter
     goDice = dice{turn}; % the hand of the player on turn
     % runs turns operated by betting function until "BS" is called
-    [quant,numb,bs,turn,bets] = betting(quant,numb,goDice,nDice,turn,bets); 
-    totalTurns = totalTurns+1; % increments total turns counter
+    [quant,numb,bs,turn,likelyBS] = betting(quant,numb,goDice,nDice,turn,bets,nsDice,likelyBS,totalTurns,traits,pHonestArray); 
+    if ~bs
+        bets{1,totalTurns} = quant;
+        bets{2,totalTurns} = numb;
+    elseif bs
+        bets{1,totalTurns} = 'BS';
+        bets{2,totalTurns} = 'BS';
+    end
+    % saves the player number for this turn
+    if turn >= 2 
+        bets{3,totalTurns} = turn-1;
+        playerOfInterest = turn-1;   
+    else 
+        bets{3,totalTurns} = 6;
+        playerOfInterest = 6;
+    end  
+    if playerOfInterest >= 2
+        playerOfInterest2 = playerOfInterest-1;
+    else
+        playerOfInterst2 = 6;
+    end
+    
+    if bs
+        if likelBS(playerOfInterest) == 1
+            likelyBS(playerOfInterest) = binocdf(bets(1,totalTurns-1),nDice,(1/3));
+        else
+            likelyBS(playerOfInterest) = (binocdf(bets(1,totalTurns-1),nDice,(1/3))+likelyBS(playerOfInterest))/2;
+        end
+    end
 end
 
+    
 %% Once BS is called, checks to see if bet wins or BS wins, and
 % changes player dice numbers accordingly
 if realQuants(numb) >= quant % real quantity of number called is greater
-                             % than or equal to bet quantity
-    nsDice(turn-1) = nsDice(turn-1)-1; % BS-er loses a die
+    % than or equal to bet quantity
+    nsDice(playerOfInterest) = nsDice(playerOfInterest)-1; % BS-er loses a die
+    playerWhoLost = playerOfInterest; % output for the player who lost a die
+    playerWhoBSed = playerOfInterest;
 else % real quantity is less than bet quantity
-    nsDice(turn-2) = nsDice(turn-2)-1; % better (who had BS called on him,
-                                       % loses a die
+    nsDice(playerOfInterest2) = nsDice(playerOfInterst2)-1; % better (who had BS called on him,
+    % loses a die
+    playerWhoLost = playerOfInterest2; % output for the player who lost
+    playerWhoBSed = playerOfInterest;
 end
-%% Player die number variables are reassigned for output
-p1Ndice = nsDice(1);
-p2Ndice = nsDice(2);
-p3Ndice = nsDice(3);
-p4Ndice = nsDice(4);
-p5Ndice = nsDice(5);
-p6Ndice = nsDice(6);
+%% Reformats the dice array
+for i = 1:6
+    dice{2,i} = dice{1,i};
+    dice{1,i} = i;
+end
 
-function [quant,numb,bs,turn,bets,likelyBS] = betting(quant,numb,goDice,nDice,turn,bets,nsDice)
-% The player whose turn it is uses the current bet (quant and numb) and his
-% dice (goDice) and the number of dice (nDice) to make a decision about
-% whether to increase the bet or to call BS on the current bet.
-%   INPUTS
-%    quant - the current bet for quantity of a certain number
-%    numb - the certain number of the current bet 
-%    goDice - the dice that the player(turn) has in hand
-%    nDice -  the total number of dice that does not change throughout the
-%             round
-%    turn - the number corresponding to the player whose turn it is
-%    bets - an array with all the past bets in this round
-%    nsDice - an array with the number of dice each player has
-%    likelyBS - a 1x6 array with general perceived percent likelihood to call BS for each player
-%   OUTPUTS
-%    quant - the new current bet with quantity
-%    numb -  the new current bet with specific number
-%    bs - a logical variable that is true if BS is called, false if not
-%    turn - the number corresponding to the player whose turn it is
-%    bets - an array with all the past bets in this round
-if turn+1 > 6
-    turn = 1;
-else
-    turn = turn+1;
-end
+

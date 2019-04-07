@@ -1,4 +1,4 @@
-function[numb, quant] = firstTurn(goDice,traits,turn,nDice)
+function[quant, numb] = firstTurn(goDice,traits,turn,nDice)
 % Determines the first bet of the round based on the players dice in hand,
 % the turn number telling what player's turn it is, and the total number of
 % dice. The first bet simply consists of number(identity) and a quantity.
@@ -15,7 +15,7 @@ function[numb, quant] = firstTurn(goDice,traits,turn,nDice)
 %% Idenity
 probs = rand;
 
-if probs >= traits(turn.honesty)
+if probs <= traits(turn.honesty)
     beHonest = true;
 else
     beHonest = false;
@@ -54,7 +54,7 @@ realQuants = [twos+ones, threes+ones, fours+ones, fives+ones, sixes+ones];
 
 max1 = max(realQuants);
 
-maxQuants = zeros(1,5);
+
 maxes = 0;
 
 for i = 1:5

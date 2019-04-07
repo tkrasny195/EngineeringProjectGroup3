@@ -1,4 +1,4 @@
-function[honesty, trust, threshold, aggressive, shifty] = generateTraits(n)
+function traits = generateTraits(n)
 % Establishes the character traits each computer player will adopt for the
 % game
 % The traits are split up in to two categories:
@@ -13,16 +13,13 @@ function[honesty, trust, threshold, aggressive, shifty] = generateTraits(n)
 %       3. Threshold
 %       4. Aggressive
 %       5. Shifty
+%       6. Consideration
 % 
 % INPUTS
 %   n - number of players 
 %
 % OUTPUTS
-%   honesty 
-%   trust
-%   threshold
-%   aggressive
-%   shifty
+%   traits -  a structure
 
 % preallocates the traits into a 1 x n array
 % looked this up and this is the general structure for preallocating but not working... fix this later or ask Bartolini
@@ -36,16 +33,6 @@ for i = 1:n
    traits(i).trust = rand;
    traits(i).aggressive = rand;
    traits(i).threshold = rand;
-   traits(i).shifty = rand;   
+   traits(i).shifty = rand;
+   traits(i).consideration = rand;
 end
-
-
-
-
-
-
-
-
-
-
-
