@@ -3,11 +3,11 @@ function likelyBS = changeLikelyBS(rounds,turn,nsDice,bets,totalTurns,nDice,like
 % Thomas Kasl
 
 turnOfInterest = reduceTurnNumber(turn,nsDice);
+[a,~] = size(bets);
+x = a-1;
 
 if rounds == 0
-    matrix1 = cell2mat(bets);
-    likelyBS(turnOfInterest) = binocdf((matrix1(1,(totalTurns-1))),nDice,(1/3));
+    likelyBS(turnOfInterest) = binocdf((bets{x,1}(1,1),nDice,(1/3));
 else
-    matrix1 = cell2mat(bets);
-    likelyBS(turnOfInterest) = (binocdf((matrix1(1,(totalTurns-1))),nDice,(1/3))+likelyBS(turnOfInterest))/2;
+    likelyBS(turnOfInterest) = (binocdf((bets{x,1}(1,1),nDice,(1/3))+likelyBS(turnOfInterest))/2;
 end
