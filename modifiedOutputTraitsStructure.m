@@ -31,4 +31,4 @@ bestTraits(1).trust = traits(6).trust;
 bestTraits(1).aggressive = traits(6).aggressive;
 bestTraits(1).threshold = traits(6).threshold;
 bestTraits(1).shifty = traits(6).shifty;
-bestTraits(1).consideration = traits(6).honesty;
+bestTraits(1).consideration = traits(6).consideration;
