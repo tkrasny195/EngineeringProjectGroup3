@@ -3,6 +3,11 @@ function [traitsWinner,traits,traitsWinners, winnersArray,iC] = modifiedGameLoop
 % Thomas Kasl
 
 winnersArray = [];
+preset = cell(1,n);
+preset(:) = {0};
+traitsWinners =  struct('honesty',preset,'trust',preset,...
+    'aggressive',preset,'threshold',preset,'shifty',preset,...
+    'consideration',preset);
 
 for iC = 1:n
     % Calls the generate traits function to generate traits structure for
@@ -24,7 +29,7 @@ for iC = 1:n
     end
     
     % Call averagePlayerTraits function
-    [traits,traitsWinners] = modifiedAveragePlayerTraits(traits,traitsWinner,iC,weightOfConsistency);
+    [traits,traitsWinners] = modifiedAveragePlayerTraits(traits,traitsWinner,iC,weightOfConsistency,traitsWinners);
     
     % Initialize likelyBS
     likelyBS = [1 1 1 1 1 1];
@@ -57,3 +62,4 @@ for iC = 1:n
     traitsSave(1).shifty = traits(6).shifty;
     traitsSave(1).consideration = traits(6).consideration;
 end
+disp('cheese');

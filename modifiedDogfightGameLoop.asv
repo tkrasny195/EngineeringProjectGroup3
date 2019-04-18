@@ -2,11 +2,9 @@ function finalTraits = modifiedDogfightGameLoop(zeta,goodTraits,testingVariable)
 % 4/11/19
 % Thomas Kasl
 winnersDogFight = [];
-preset = cell(1,zeta-1);
-preset(:) = {0};
-traitsWinners =  struct('honesty',preset,'trust',preset,...
-    'aggressive',preset,'threshold',preset,'shifty',preset,...
-    'consideration',preset);
+traitsWinners =  struct('honesty',cell(1,zeta),'trust',cell(1,zeta),...
+    'aggressive',zeros(1,zeta),'threshold',zeros(1,zeta),'shifty',zeros(1,zeta),...
+    'consideration',zeros(1,zeta));
 for iC = 1:zeta
     % MODIFIED TRAITS SET
     traits = goodTraits;

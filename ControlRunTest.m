@@ -19,12 +19,12 @@ switch control
         toc
         levels = true;
         level = 2;
- %   case 2.1
-%         tic
-%         meanDogfightNI(n,zeta,weightOfConsistency)
-%         toc
-%         levels = true;
-%         level = 2;
+   case 2.1
+        tic
+        meanDogfightNI(n,zeta,weightOfConsistency)
+        toc
+        levels = true;
+        level = 2;
     case 3
         tic
         dogfight2NI(n,zeta,weightOfConsistency)

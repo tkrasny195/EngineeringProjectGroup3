@@ -1,4 +1,4 @@
-function [traits,traitsWinners] = modifiedAveragePlayerTraits(traits,traitsWinner,iC,weightOfConsistency)
+function [traits,traitsWinners] = modifiedAveragePlayerTraits(traits,traitsWinner,iC,weightOfConsistency,traitsWinners)
 % 4/12/19
 % Thomas Kasl
 
@@ -11,11 +11,11 @@ if iC == 1
     traits(6).shifty = 0.5;
     traits(6).consideration = 0.5;
     traitsWinners(1).honesty = 1;
-    traitsWinners(2).trust = 1;
-    traitsWinners(3).aggressive = 1;
-    traitsWinners(4).threshold = 1;
-    traitsWinners(5).shifty = 1;
-    traitsWinners(6).consideration = 1;
+    traitsWinners(1).trust = 1;
+    traitsWinners(1).aggressive = 1;
+    traitsWinners(1).threshold = 1;
+    traitsWinners(1).shifty = 1;
+    traitsWinners(1).consideration = 1;
 %elseif iC == 2
 %    traits(6).honesty = traitsWinner(1).honesty;
 %    traits(6).trust = traitsWinner(1).trust;
@@ -31,18 +31,18 @@ if iC == 1
 %    traits(6).shifty = (traitsWinner(1).shifty+traits(6).shifty)/2;
 %    traits(6).consideration = (traitsWinner(1).consideration+traits(6).consideration)/2;
 else
-    traitsWinners(iC).honesty = traitsWinner(1).honesty;
-    traitsWinners(iC).trust = traitsWinner(1).trust;
-    traitsWinners(iC).aggressive = traitsWinner(1).aggressive;
-    traitsWinners(iC).threshold = traitsWinner(1).threshold;
-    traitsWinners(iC).shifty = traitsWinner(1).shifty;
-    traitsWinners(iC).consideration = traitsWinner(1).consideration;
-    traits(6).honesty = mean([traitsWinners.honesty]);
-    traits(6).trust = mean([traitsWinners.trust]);
-    traits(6).aggressive = mean([traitsWinners.aggressive]);
-    traits(6).threshold = mean([traitsWinners.threshold]);
-    traits(6).shifty = mean([traitsWinners.shifty]);
-    traits(6).consideration = mean([traitsWinners.consideration]);
+    traitsWinners(iC-1).honesty = traitsWinner(1).honesty;
+    traitsWinners(iC-1).trust = traitsWinner(1).trust;
+    traitsWinners(iC-1).aggressive = traitsWinner(1).aggressive;
+    traitsWinners(iC-1).threshold = traitsWinner(1).threshold;
+    traitsWinners(iC-1).shifty = traitsWinner(1).shifty;
+    traitsWinners(iC-1).consideration = traitsWinner(1).consideration;
+    traits(6).honesty = mean(nonzeros([traitsWinners.honesty]));
+    traits(6).trust = mean(nonzeros([traitsWinners.trust]));
+    traits(6).aggressive = mean(nonzeros([traitsWinners.aggressive]));
+    traits(6).threshold = mean(nonzeros([traitsWinners.threshold]));
+    traits(6).shifty = mean(nonzeros([traitsWinners.shifty]));
+    traits(6).consideration = mean(nonzeros([traitsWinners.consideration]));
    % weight1 = weightOfConsistency;
    % weight2 = 10-weightOfConsistency;
    % 
