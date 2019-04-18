@@ -15,19 +15,19 @@ switch control
         levels = false;
     case 2
         tic
-        dogfightNI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfightNI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 2;
- %   case 2.1
-%         tic
-%         meanDogfightNI(n,zeta,weightOfConsistency)
-%         toc
-%         levels = true;
-%         level = 2;
+   case 2.1
+        tic
+        meanDogfightNI(n,zeta,weightOfConsistency)
+        toc
+        levels = true;
+        level = 2;
     case 3
         tic
-        dogfight2NI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfight2NI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 3;
@@ -39,7 +39,7 @@ switch control
         level = 3;
     case 4
         tic
-        dogfight3NI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfight3NI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 4;
@@ -51,7 +51,7 @@ switch control
         level = 4;
     case 5
         tic
-        dogfight4NI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfight4NI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 5;
@@ -63,7 +63,7 @@ switch control
         level = 5;
     case 6
         tic
-        dogfight5NI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfight5NI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 6;
@@ -87,8 +87,11 @@ end
 disp(['Number of games: ', results]);
 disp(['Weight factor: ',num2str(weightOfConsistency)]);
 disp(' ');
-if control == 1
-    [string1,string2] = calcWins(winnersArray);
+if control == 1 || control == 2 || control == 2 || control == 2 || control == 2 ||
+    if control == 1
+        mostOftenWinner = 6;
+    end
+    [string1,string2] = calcWins(winnersDogfight,mostOftenWinner)
     disp(string1)
     disp(string2)
 end

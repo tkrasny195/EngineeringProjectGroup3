@@ -1,18 +1,18 @@
-function [string1,string2] = calcWins(winnersArray)
+function [string1,string2] = calcWins(winnersDogfight,mostOftenWinner)
 num6 = 0;
-for i = 1:length(winnersArray)
-    if winnersArray(i) == 6
+for i = 1:length(winnersDogfight)
+    if winnersDogfight(i) == mostOftenWinner
         num6 = num6+1;
     end
 end
-percentageWins = (num6/length(winnersArray))*100;
+percentageWins = (num6/length(winnersDogfight))*100;
 
 num6half = 0;
 runs = 0;
 
-for i = ceil(length(winnersArray)/2):length(winnersArray)
+for i = ceil(length(winnersDogfight)/2):length(winnersDogfight)
     runs = runs+1;
-    if winnersArray(i) == 6
+    if winnersDogfight(i) == mostOftenWinner
         num6half = num6half+1;
     end
 end

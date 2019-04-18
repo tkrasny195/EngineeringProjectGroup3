@@ -19,7 +19,7 @@ for i = 1:6
 end
 
 
-[finalFinalFinalTraits,winnersDogfight,mostOftenWinner] = dogfightGame(gamma,finalFinalTraits);
+finalFinalFinalTraits,winnersDogfight,mostOftenWinner = dogfightGame(gamma,finalFinalTraits);
 
 string = gamesInLevel(level,n,zeta);
 

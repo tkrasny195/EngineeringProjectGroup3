@@ -1,4 +1,4 @@
-function finalFinalFinalFinalTraits = dogfight4NI(n,zeta,weightOfConsistency)
+function [finalFinalFinalFinalTraits,winnersDogfight,mostOftenWinner] = dogfight4NI(n,zeta,weightOfConsistency)
 % Number of levels: 5
 % Total games: 9589
 % Estimated Run Time:  (Thomas)
@@ -21,7 +21,7 @@ for i = 1:6
 end
 
 
-finalFinalFinalFinalTraits = dogfightGame(iota,finalFinalFinalTraits);
+[finalFinalFinalFinalTraits,winnersDogfight,mostOftenWinner] = dogfightGame(iota,finalFinalFinalTraits);
 
 string = gamesInLevel(level,n,zeta);
 

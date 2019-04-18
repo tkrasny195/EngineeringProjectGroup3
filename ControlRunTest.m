@@ -3,10 +3,10 @@
 % Thomas Kasl
 clear
 clc
-n = 11;
-zeta = 15; % the number of games in each level of dogfight between the winners
+n = 5;
+zeta = 5; % the number of games in each level of dogfight between the winners
 weightOfConsistency = 5;
-control = 4.1;
+control = 2;
 switch control
     case 1
         tic
@@ -15,7 +15,7 @@ switch control
         levels = false;
     case 2
         tic
-        dogfightNI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfightNI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 2;
@@ -27,7 +27,7 @@ switch control
         level = 2;
     case 3
         tic
-        dogfight2NI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfight2NI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 3;
@@ -39,7 +39,7 @@ switch control
         level = 3;
     case 4
         tic
-        dogfight3NI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfight3NI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 4;
@@ -51,7 +51,7 @@ switch control
         level = 4;
     case 5
         tic
-        dogfight4NI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfight4NI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 5;
@@ -63,7 +63,7 @@ switch control
         level = 5;
     case 6
         tic
-        dogfight5NI(n,zeta,weightOfConsistency)
+        [finalTraits,winnersDogfight,mostOftenWinner] = dogfight5NI(n,zeta,weightOfConsistency);
         toc
         levels = true;
         level = 6;
@@ -74,21 +74,25 @@ switch control
         levels = true;
         level = 6;
 end
-if levels
-    results = gamesInLevel(level,n,zeta);
-else
-    results = num2str(n);
-end
+% if levels
+%     results = gamesInLevel(level,n,zeta);
+% else
+%     results = num2str(n);
+% end
 
 if control == 1
     disp(' ');
     disp(traits);
 end
-disp(['Number of games: ', results]);
-disp(['Weight factor: ',num2str(weightOfConsistency)]);
+% disp(['Number of games: ', results]);
+
 disp(' ');
-if control == 1
-    [string1,string2] = calcWins(winnersArray);
+if control == 1 || control == 2 || control == 3 || control == 4 || control == 5 || control == 6 
+    if control == 1
+        mostOftenWinner = 6;
+        winnersDogfight = winnersArray;
+    end
+    [string1,string2] = calcWins(winnersDogfight,mostOftenWinner);
     disp(string1)
     disp(string2)
 end

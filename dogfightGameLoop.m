@@ -1,7 +1,7 @@
-function finalTraits = dogfightGameLoop(zeta,goodTraits)
+function [finalTraits,winnersDogfight,mostOftenWinner] = dogfightGameLoop(zeta,goodTraits)
 % 4/11/19
 % Thomas Kasl
-winnersDogFight = [];
+winnersDogfight = [];
 for iC = 1:zeta
     % MODIFIED TRAITS SET
     traits = goodTraits;
@@ -29,9 +29,9 @@ for iC = 1:zeta
     [traits,winner] = dogfightRunGame(nsDice,win,turn,likelyBS,traits,pHonestArray,lies,truths);
     % stores game data in array
  
-    winnersDogFight = [winnersDogFight, winner];
+    winnersDogfight = [winnersDogfight, winner];
 end
-mostOftenWinner = mode(winnersDogFight);
+mostOftenWinner = mode(winnersDogfight);
 x = mostOftenWinner;
 finalTraits.honesty = traits(x).honesty;
 finalTraits.trust = traits(x).trust;
