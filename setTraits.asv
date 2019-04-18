@@ -1,0 +1,23 @@
+%% setTraits.m
+% Thomas Kasl
+% 4/18/19
+for i = 1:5
+    bunchOfTraits(i).honesty = rand;
+    bunchOfTraits(i).trust = rand;
+    bunchOfTraits(i).aggressive = rand;
+    bunchOfTraits(i).theshold = rand;
+    bunchOfTraits(i).shifty = rand;
+    bunchOfTraits(i).consideration = rand;
+end
+
+bunchOfTraits(6).honesty = 0.3;
+bunchOfTraits(6).trust = 0.4;
+bunchOfTraits(6).aggressive = 0.6;
+bunchOfTraits(6).theshold = 0.7;
+bunchOfTraits(6).shifty = 0.9;
+bunchOfTraits(6).consideration = 0.3;
+
+
+
+
+save('goodTraitsSave','bunchOf);
