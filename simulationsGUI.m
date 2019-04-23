@@ -64,7 +64,7 @@ guidata(hObject, handles);
 curBackground = .2;
 axes(handles.layoutAxes1);
 set(handles.layoutAxes1,'visible','off');
-rectangle('position', [0,0,30,30],'FaceColor','blue','Curvature',curBackground);
+rectangle('position', [0,0,30,30],'FaceColor','blue');
 
 axes(handles.layoutAxes2);
 set(handles.layoutAxes2,'visible','off');
@@ -76,12 +76,16 @@ rectangle('position', [0,0,30,30],'FaceColor','blue');
 
 axes(handles.layoutAxes4);
 set(handles.layoutAxes4,'visible','off');
-rectangle('position', [0,0,30,30],'FaceColor','black','Curvature',curBackground);
+rectangle('position', [0,0,30,30],'FaceColor','white','Curvature',curBackground);
 
 axes(handles.layoutAxes5);
 set(handles.layoutAxes5,'visible','off');
 rectangle('position', [0,0,30,30],'FaceColor','black');
 uistack(handles.layoutAxes5,'bottom');
+
+axes(handles.layoutAxes6);
+set(handles.layoutAxes6,'visible','off');
+rectangle('position', [0,0,30,30],'FaceColor','white','Curvature',curBackground);
 
 
 % --- Outputs from this function are returned to the command line.
@@ -135,21 +139,21 @@ wins5 = 0;
 wins6 = 0;
 rColor = 1;
 gColor = 0;
-%axes(handles.progressBar);
-%axis([0 n 0 1]);
-%hold on;
+
 set(handles.prog1,'BackgroundColor',[1 0 0]);
 axes(handles.barGraph);
 upperBound = n/6 + (.20 * n);
-axis([0 7 0 upperBound]);
-hold on;
 v1 = handles.v1s.Value;
 v2 = handles.v2s.Value;
 v3 = handles.v3s.Value;
 v4 = handles.v4s.Value;
 v5 = handles.v5s.Value;
 v6 = handles.v6s.Value;
-for i= 0:n
+
+axis([0 7 0 upperBound]);
+hold on;
+
+for i= 1:n
     winner = simulationGame1(v1,v2,v3,v4,v5,v6);
     if winner == 1
         wins1 = wins1 + 1;
@@ -198,7 +202,7 @@ for i= 0:n
     set(g3,'FaceColor',[0,.5,0]);
     set(g4,'FaceColor',[.3010, .7450,.9330]);
     set(g5,'FaceColor',[1,.325,.098]);
-    set(g6,'FaceColor','b');
+    set(g6,'FaceColor',[1, 0, 1]);
     B = (handles.gameNum.Value / n);
     B = round(f*B)/f;
     handles.progress.Value = B;
@@ -231,9 +235,9 @@ function reset_Callback(hObject, eventdata, handles)
 % hObject    handle to reset (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles.numGames.Value = 0;
+handles.numGames.Value = 1;
 handles.numGames.String = '';
-handles.gameNum.Value = 0;
+handles.gameNum.Value = 1;
 handles.gameNum.String = '0';
 handles.p1Wins.String = '0';
 handles.p2Wins.String = '0';
