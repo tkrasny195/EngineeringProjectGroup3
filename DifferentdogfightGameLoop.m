@@ -30,17 +30,17 @@ for iC = 1:zeta
         r3 = (b-a)*rand + a;
         
         % Random values for threshold
-        a = 0.59;
-        b = 0.61;
+        a = 0.6;
+        b = 0.96;
         r4 = (b-a)*rand + a;
         
         % Random values for shifty
-        a = 0.5;
-        b = 0.9;
+        a = 0.2;
+        b = 0.8;
         r5 = (b-a)*rand + a;
         
         % Random values for consideration
-        a = 0.5;
+        a = 0.6;
         b = 0.9;
         r6 = (b-a)*rand + a;
         
@@ -56,7 +56,7 @@ for iC = 1:zeta
     bunchOfTraits(bestPlayerNumber).honesty = 0.4;
     bunchOfTraits(bestPlayerNumber).trust = 0.5;
     bunchOfTraits(bestPlayerNumber).aggressive = 0.6;
-    bunchOfTraits(bestPlayerNumber).threshold = 0.6;
+    bunchOfTraits(bestPlayerNumber).threshold = 0.85;
     bunchOfTraits(bestPlayerNumber).shifty = 0.4;
     bunchOfTraits(bestPlayerNumber).consideration = 0.8;
     
