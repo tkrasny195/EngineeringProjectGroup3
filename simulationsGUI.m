@@ -22,7 +22,7 @@ function varargout = simulationsGUI(varargin)
 
 % Edit the above text to modify the response to help simulationsGUI
 
-% Last Modified by GUIDE v2.5 20-Apr-2019 15:38:11
+% Last Modified by GUIDE v2.5 23-Apr-2019 21:24:46
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -200,8 +200,8 @@ for i= 1:n
     set(g1,'FaceColor','red');
     set(g2,'FaceColor','yellow');
     set(g3,'FaceColor',[0,.5,0]);
-    set(g4,'FaceColor',[.3010, .7450,.9330]);
-    set(g5,'FaceColor',[1,.325,.098]);
+    set(g4,'FaceColor',[1,.325,.098]);
+    set(g5,'FaceColor',[.3010, .7450,.9330]);
     set(g6,'FaceColor',[1, 0, 1]);
     B = (handles.gameNum.Value / n);
     B = round(f*B)/f;
@@ -548,20 +548,20 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in pushbutton3.
-function pushbutton3_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton3 (see GCBO)
+% --- Executes on button press in bestPlayer.
+function bestPlayer_Callback(hObject, eventdata, handles)
+% hObject    handle to bestPlayer (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-handles.v1s.Value = .2;
-handles.v2s.Value = .1;
+handles.v1s.Value = .4;
+handles.v2s.Value = .5;
 handles.v3s.Value = .6;
-handles.v4s.Value = .55;
-handles.v5s.Value = .99;
-handles.v6s.Value = .92;
-handles.v1txt.String = '.2';
-handles.v2txt.String = '.1';
+handles.v4s.Value = .65;
+handles.v5s.Value = .4;
+handles.v6s.Value = .8;
+handles.v1txt.String = '.5';
+handles.v2txt.String = '.7';
 handles.v3txt.String = '.6';
-handles.v4txt.String = '.55';
-handles.v5txt.String = '.99';
-handles.v6txt.String = '.92';
+handles.v4txt.String = '.6';
+handles.v5txt.String = '.4';
+handles.v6txt.String = '.6';

@@ -88,8 +88,6 @@ if iM == 1
 elseif iM == 2
     simulationsGUI
 elseif iM == 3
-    playAGameGUI
-elseif iM == 4
     AdviceGUI
 end
 
