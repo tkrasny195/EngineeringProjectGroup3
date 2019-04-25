@@ -63,6 +63,7 @@ set(handles.arrow,'visible','off');
 
 handles.pHonestArray.Value = [.5,.5,.5,.5,.5,.5];
 
+%Loads images that are static in the background
 avatar = imread('avatar3.jpg');
 redcup = imread('redcup1.png');
 yellowcup = imread('yellowcup1.png');
@@ -82,6 +83,7 @@ imshow(orangecup);
 axes(handles.dice6);
 imshow(dbluecup);
 
+%Sets background "rectangles"
 curBackground = .2;
 axes(handles.layoutAxes1);
 set(handles.layoutAxes1,'visible','off');
@@ -111,7 +113,7 @@ rectangle('position', [0,0,30,30],'FaceColor',[.85 .05 .05]);
 uistack(handles.layoutAxes6,'bottom');
 
 
-
+%Creates the black dot for the arrow background
 axes(handles.arrowBackground);
 set(handles.arrowBackground,'visible','off');
 d = 2;
@@ -121,6 +123,7 @@ rectangle('Position',pos,'Curvature',[1 1],'FaceColor','black');
 
 set(handles.nextPlayer, 'UserData',0);
 
+%Sets the initial values for the round counter and dice counter
 handles.roundNumber.String = '0';
 handles.totalDiceLabel.String = '0';
 
@@ -266,8 +269,12 @@ function roundReset_Callback(hObject, eventdata, handles)
 % hObject    handle to roundReset (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+% Calls another gui for the truth/lie data
 TruthLiePopUp
 uiwait(gcf);
+
+%Transfers data from the TruthLie gui to this gui
 lies = zeros(1,6);
 truths = zeros(1,6);
 lies(1,2) = getappdata(0,'p2lies');
@@ -287,6 +294,8 @@ switchArray(1,3) = getappdata(0,'p3current');
 switchArray(1,4) = getappdata(0,'p4current');
 switchArray(1,5) = getappdata(0,'p5current');
 switchArray(1,1) = getappdata(0,'p6current');
+
+%Arranges data that will be necessary for modifying pHonesty
 initialPosition = handles.startingPlayer.Value;
 totalDice = handles.totalDiceLeft.Value;
 nsDice = zeros(1,6);
@@ -297,9 +306,10 @@ nsDice(1,4) = handles.dice4Count.Value;
 nsDice(1,5) = handles.dice5Count.Value;
 nsDice(1,6) = handles.dice6Count.Value;
 
+%Calls the formatting bets function to arrange the bets into a usable format
 [formBets,turn] = formatBets(handles.currentBet.Value,initialPosition,nsDice);
 formBets{1,end+1}=[0;0;turn];
-[handles.pHonestArray,lies,truths] = modifiedpHonestyAdjust(handles.pHonestArray.Value,lies,truths,switchArray);
+[handles.pHonestArray,lies,truths] = modifiedpHonestyAdjustG(handles.pHonestArray.Value,lies,truths,switchArray);
 
 rounds = handles.roundNumber.Value;
 likelyBS = handles.likelyBS.Value;
@@ -373,7 +383,7 @@ if startingPos == 1
     theta = 270;
 elseif startingPos == 2
     theta = 335;
-elseif startingPos == 3 
+elseif startingPos == 3
     theta = 40;
 elseif startingPos == 4
     theta = 90;
@@ -381,9 +391,14 @@ elseif startingPos == 5
     theta = 140;
 elseif startingPos == 6
     theta = 210;
+else
+    handles.startingPlayer.String = '';
+    theta = 0;
 end
-arrow = imrotate(arrow,theta,'crop');
-imshow(arrow);
+if theta ~= 0 
+    arrow = imrotate(arrow,theta,'crop');
+    imshow(arrow);
+end
 
 
 % --- Executes during object creation, after setting all properties.
@@ -709,13 +724,12 @@ nsDice(1,4) = handles.dice4Count.Value;
 nsDice(1,5) = handles.dice5Count.Value;
 nsDice(1,6) = handles.dice6Count.Value;
 
-
 traits.honesty(1) = .4;
-traits.trust(1) = .2;
-traits.aggressive(1) = .58;
-traits.threshold(1) = .68;
-traits.shifty(1) = .8;
-traits.consideration(1) = .5;
+traits.trust(1) = .5;
+traits.aggressive(1) = .6;
+traits.threshold(1) = .65;
+traits.shifty(1) = .4;
+traits.consideration(1) = .8;
 
 initialPosition = handles.startingPlayer.Value;
 turn = 1;
@@ -749,7 +763,7 @@ if handles.currentBet.Value == 0
     handles.recBet.String = advice1;
 else
     formBets = formatBets(handles.currentBet.Value,initialPosition,nsDice);
-    [quantity, identity, bs] = normalTurn(goDice,traits,turn,totalDice,formBets,likelyBS,...
+    [quantity, identity, bs] = normalTurnG(goDice,traits,turn,totalDice,formBets,likelyBS,...
                                            pHonestArray,nsDice, quantity, numb,bs);
     if bs
         advice2 = 'You should call BS!';
